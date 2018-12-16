@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.user.contract.mapper.ContractMapper">
+
+    <resultMap type="Contract" id="ContractResult">
+        <id     property="contractId"       column="contract_id"        />
+        <result property="contractClient"     column="contract_client"      />
+        <result property="contractTopic"      column="contract_topic"       />
+        <result property="contractOwner"     column="contract_owner"      />
+    </resultMap>
+
+    <select id="selectContractList" parameterType="Sale" resultMap="ContractResult">
+        select contract_id,contract_client,contract_topic,contract_owner from sys_contract
+
+    </select>
+
+    <select id="selectContractsAll" resultMap="ContractResult">
+        select contract_id,contract_client,contract_topic,contract_owner from sys_contract
+    </select>
+
+    <update id="updateContract" parameterType="Contract">
+        update sys_contract
+        <set>
+            <if test="contractClient != null and contractClient != ''">contract_client = #{contractClient},</if>
+            <if test="contractTopic != null and contractTopic != ''">contract_topic = #{contractTopic},</if>
+            <if test="contractOwner != null and contractOwner != ''">contract_owner = #{contractOwner},</if>
+        </set>
+        where 1=1
+        <if test="contractId != null">and contract_id = #{contractId}</if>
+    </update>
+
+    <select id="selectContractById" parameterType="Long" resultMap="ContractResult">
+        select contract_id,contract_client,contract_topic,contract_owner
+        from sys_contract u
+        where u.contract_id = #{contractId}
+    </select>
+
+    <insert id="insertContract" parameterType="Contract" useGeneratedKeys="true" keyProperty="contractId">
+        insert into sys_contract(
+        <if test="contractId != null and contractId != 0">contract_id,</if>
+        <if test="contractClient != null and contractClient != ''">contract_client,</if>
+        <if test="contractTopic != null and contractTopic != ''">contract_topic,</if>
+        <if test="contractOwner != null and contractOwner != ''">contract_owner</if>
+        )values(
+        <if test="contractId != null and contractId != 0">#{contractId},</if>
+        <if test="contractClient != null and contractClient != ''">#{contractClient},</if>
+        <if test="contractTopic != null and contractTopic != ''">#{contractTopic},</if>
+        <if test="contractOwner != null and contractOwner != ''">#{contractOwner}</if>
+        )
+    </insert>
+
+    <select id="checkContractNameUnique" parameterType="String" resultType="int">
+        select count(*) from sys_contract where contract_topic=#{contractTopic}
+    </select>
+
+    <!--<select id="selectRolesByUserId" parameterType="Long" resultMap="RoleResult">
+        SELECT r.role_id, r.role_name, r.role_key
+        FROM sys_user u
+        LEFT JOIN sys_user_role ur ON u.user_id = ur.user_id
+        LEFT JOIN sys_role r ON ur.role_id = r.role_id
+        WHERE ur.user_id = #{userId}
+    </select>
+
+    <select id="selectRolesAll" resultMap="RoleResult">
+        SELECT role_id, role_name, role_key, role_sort, status, create_time, remark FROM sys_role
+    </select>
+
+    <select id="selectRoleById" parameterType="Long" resultMap="RoleResult">
+        select role_id, role_name, role_key, role_sort, status, create_time, remark
+        from sys_role u
+        where u.role_id = #{roleId}
+    </select>
+
+    <select id="checkRoleNameUnique" parameterType="String" resultMap="RoleResult">
+        select role_id, role_name, role_key, role_sort, status, create_time
+        from sys_role where role_name=#{roleName}
+    </select>
+
+    <delete id="deleteRoleById" parameterType="Long">
+        delete from sys_role where role_id = #{roleId}
+    </delete>
+
+    <delete id="batchDeleteRole" parameterType="Long">
+        delete from sys_role where role_id in
+        <foreach collection="array" item="roleId" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
+    </delete>
+
+    <update id="updateRole" parameterType="Role">
+        update sys_role
+        <set>
+            <if test="roleName != null and roleName != ''">role_name = #{roleName},</if>
+            <if test="roleKey != null and roleKey != ''">role_key = #{roleKey},</if>
+            <if test="roleSort != null and roleSort != ''">role_sort = #{roleSort},</if>
+            <if test="status !=null">status = #{status},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            update_time = sysdate()
+        </set>
+        where 1=1
+        <if test="roleId != null">and role_id = #{roleId}</if>
+    </update>
+
+    <insert id="insertRole" parameterType="Role" useGeneratedKeys="true" keyProperty="roleId">
+        insert into sys_role(
+        <if test="roleId != null and roleId != 0">role_id,</if>
+        <if test="roleName != null and roleName != ''">role_name,</if>
+        <if test="roleKey != null and roleKey != ''">role_key,</if>
+        <if test="roleSort != null and roleSort != ''">role_sort,</if>
+        <if test="status !=null and status != ''">status,</if>
+        <if test="remark != null and remark != ''">remark,</if>
+        <if test="createBy != null and createBy != ''">create_by,</if>
+        create_time
+        )values(
+        <if test="roleId != null and roleId != 0">#{roleId},</if>
+        <if test="roleName != null and roleName != ''">#{roleName},</if>
+        <if test="roleKey != null and roleKey != ''">#{roleKey},</if>
+        <if test="roleSort != null and roleSort != ''">#{roleSort},</if>
+        <if test="status !=null and status != ''">#{status},</if>
+        <if test="remark != null and remark != ''">#{remark},</if>
+        <if test="createBy != null and createBy != ''">#{createBy},</if>
+        sysdate()
+        )
+    </insert>-->
+
+</mapper>

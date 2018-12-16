@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.elevator.engine.mapper.EngineMapper">
+
+    <resultMap type="Engine" id="EngineResult">
+        <id     property="id"       column="client_id"        />
+        <result property="service_id"     column="service_id"      />
+        <result property="user_number"     column="user_number"      />
+        <result property="traction_machine"     column="traction_machine"      />
+        <result property="room_environment"     column="room_environment"      />
+        <result property="encoder"     column="encoder"      />
+        <result property="brakespinparts"     column="brakespinparts"      />
+        <result property="brakesclearance"     column="brakesclearance"      />
+        <result property="speedlimiter"     column="speedlimiter"      />
+        <result property="operating_device"     column="operating_device"      />
+    </resultMap>
+
+    <insert id="insertEngine" parameterType="Engine" useGeneratedKeys="true" keyProperty="id">
+        insert into engine_room(
+        <if test="id != null and id != 0">id,</if>
+        <if test="service_id != null and service_id != ''">service_id,</if>
+        <if test="user_number != null and user_number != ''">user_number</if>
+        <!--<if test="traction_machine != null and traction_machine != ''">area,</if>-->
+        <!--<if test="room_environment != null and room_environment != ''">room_environment,</if>-->
+        <!--<if test="encoder != null and encoder != ''">encoder,</if>-->
+        <!--<if test="brakespinparts != null and brakespinparts != ''">brakespinparts,</if>-->
+        <!--<if test="brakesclearance != null and brakesclearance != ''">brakesclearance,</if>-->
+        <!--<if test="speedlimiter != null and speedlimiter != ''">speedlimiter,</if>-->
+        <!--<if test="operating_device != null and operating_device != ''">operating_device</if>-->
+        )values(
+        <if test="id != null and id != 0">#{id},</if>
+        <if test="service_id != null and service_id != ''">#{service_id},</if>
+        <if test="user_number != null and user_number != ''">#{user_number}</if>
+        <!--<if test="traction_machine != null and traction_machine != ''">#{traction_machine},</if>-->
+        <!--<if test="room_environment != null and room_environment != ''">#{room_environment},</if>-->
+        <!--<if test="encoder != null and encoder != ''">#{encoder},</if>-->
+        <!--<if test="brakespinparts != null and brakespinparts != ''">#{brakespinparts},</if>-->
+        <!--<if test="brakesclearance != null and brakesclearance != ''">#{brakesclearance},</if>-->
+        <!--<if test="speedlimiter != null and speedlimiter != ''">#{speedlimiter},</if>-->
+        <!--<if test="operating_device != null and operating_device != ''">#{operating_device}</if>-->
+        )
+    </insert>
+
+</mapper>

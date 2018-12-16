@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.elevator.mqtt.mapper.RealTimeDataMapper">
+
+	<resultMap type="RealTimeData" id="RealTimeDataResult">
+		<id     property="id"       column="id"      />
+		<result property="iotId"       column="iot_id"      />
+		<result property="currentStatus"    column="current_status"   />
+		<result property="playWay"     column="play_way"    />
+		<result property="currentRank"        column="current_rank"        />
+		<result property="doorStatus"  column="door_status"  />
+		<result property="playDirection"          column="play_direction"          />
+		<result property="playSpeed"       column="play_speed"       />
+		<result property="totalDate"     column="total_date"     />
+		<result property="totalTime"         column="total_time"         />
+		<result property="faultInfo"     column="fault_info"    />
+		<result property="faultCode"       column="fault_code"       />
+		<result property="uploadTime"       column="upload_time"       />
+	</resultMap>
+	
+	<resultMap type="IotDevice" id="IotDeviceResult">
+		<id     property="Id"       column="id"      />
+		<result property="productName"       column="product_name"      />
+		<result property="deviceName"    column="device_name"   />
+	</resultMap>
+	
+	<insert id="insertData">
+ 		insert into realtime_data(
+ 			<if test="topic != null and topic != ''">iot_id</if>
+ 			<if test="current_status != null and current_status != ''">,current_status</if>
+ 			<if test="play_way != null and play_way != ''">,play_way</if>
+ 			<if test="current_rank != null and current_rank != ''">,current_rank</if>
+ 			<if test="door_status != null and door_status != ''">,door_status</if>
+ 			<if test="play_direction != null and play_direction != ''">,play_direction</if>
+ 			<if test="play_speed != null and play_speed != ''">,play_speed</if>
+ 		)values(
+ 			<if test="topic != null and topic != ''">(select id from iot_device where product_name = #{topic})</if>
+ 			<if test="current_status != null and current_status != ''">,#{current_status}</if>
+ 			<if test="play_way != null and play_way != ''">,#{play_way}</if>
+ 			<if test="current_rank != null and current_rank != ''">,#{current_rank}</if>
+ 			<if test="door_status != null and door_status != ''">,#{door_status}</if>
+ 			<if test="play_direction != null and play_direction != ''">,#{play_direction}</if>
+ 			<if test="play_speed != null and play_speed != ''">,#{play_speed}</if>
+ 		)
+	</insert>
+	
+	<select id="seestatus" parameterType="long" resultMap="RealTimeDataResult">
+		SELECT rd.* FROM realtime_data rd
+		LEFT JOIN iot_device d ON d.id = rd.iot_id
+		LEFT JOIN sys_elevator e ON  e.registration_code = d.product_name 
+		WHERE 1=1 
+		<if test="id != 0 and id != ''">and e.id = #{id}</if>
+		ORDER BY rd.id DESC LIMIT 1
+	</select>
+	
+	<select id="seehistory" parameterType="long" resultMap="RealTimeDataResult">
+		SELECT rd.* FROM realtime_data rd
+		LEFT JOIN iot_device d ON d.id = rd.iot_id
+		LEFT JOIN sys_elevator e ON  e.registration_code = d.product_name 
+		WHERE 1=1 
+		<if test="id != 0 and id != ''">and e.id = #{id}</if>
+	</select>
+	
+	<insert id="saveIotDevice" parameterType="IotDevice">
+		insert into iot_device(
+		<if test="productName != null and productName != ''">product_name</if>
+		<if test="deviceName != null and deviceName != ''">,device_name</if>
+		)values(
+		<if test="productName != null and productName != ''">#{productName}</if>
+		<if test="deviceName != null and deviceName != ''">,#{deviceName}</if>
+		)
+	</insert>
+	
+</mapper> 

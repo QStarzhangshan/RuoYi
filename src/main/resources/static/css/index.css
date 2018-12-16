@@ -1,0 +1,24 @@
+*{
+    margin:0;
+    padding:0;
+}
+body{
+    height:100%;
+}
+.main{
+    background: #f0f2f5
+}
+.cascader{
+    padding:10px 0 0 30px;
+}
+.count{
+    background:#fff;
+    float:left;
+    width:46.25%;
+    height:350px;
+    margin:20px 0 0 2.5%
+}
+.title{
+    text-align: center;
+    margin:10px 0 10px 0
+}

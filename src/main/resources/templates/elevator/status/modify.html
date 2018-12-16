@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<link href="/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css" th:href="@{/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css}" rel="stylesheet"/>
+<body class="white-bg">
+	<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+		<form class="form-horizontal m" id="form-status-edit">
+			<input id="id" name="id" type="hidden" th:value="${elevatorStatus.id}"/>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">业主：</label>
+				<div class="col-sm-8">
+					<input class="form-control" type="text" name="elevatorStatus.client_name" id="elevatorStatus.client_name" th:value="${elevatorStatus.client_name}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">支付方式：</label>
+				<div class="col-sm-8">
+					<input class="form-control" type="text" name="elevatorStatus.payment_method" id="elevatorStatus.payment_method" th:value="${elevatorStatus.payment_method}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">合同日期：</label>
+				<div class="col-sm-8">
+					<input class="form-control" type="text" name="elevatorStatus.contract_time" id="elevatorStatus.contract_time" th:value="${elevatorStatus.contract_time}" >
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">所有方联系人：</label>
+				<div class="col-sm-8">
+					<input class="form-control" type="text" name="elevatorStatus.contact_name" id="elevatorStatus.contact_name" th:value="${elevatorStatus.contact_name}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">所有方联系方式：</label>
+				<div class="col-sm-8">
+					<input class="form-control" type="text" name="elevatorStatus.contact_phone" id="elevatorStatus.contact_phone" th:value="${elevatorStatus.contact_phone}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">维保公司：</label>
+				<div class="col-sm-8">
+					<input class="form-control" type="text" name="ServiceStatus.maintenance_company" id="ServiceStatus.maintenance_company" th:value="${ServiceStatus.maintenance_company}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">维保人：</label>
+				<div class="col-sm-8">
+					<input class="form-control" type="text" name="ServiceStatus.user_name" id="ServiceStatus.user_name" th:value="${ServiceStatus.user_name}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">维保联系方式：</label>
+				<div class="col-sm-8">
+					<input class="form-control" type="text" name="ServiceStatus.phonenumber" id="ServiceStatus.phonenumber" th:value="${ServiceStatus.phonenumber}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">维保类型：</label>
+				<div class="col-sm-8">
+					<input class="form-control" type="text" name="ServiceStatus.service_type" id="ServiceStatus.service_type" th:value="${ServiceStatus.service_type}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">维保金额：</label>
+				<div class="col-sm-8">
+					<input class="form-control" type="text" name="ServiceStatus.maintenance_cost" id="ServiceStatus.maintenance_cost" th:value="${ServiceStatus.maintenance_cost}">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="form-control-static col-sm-offset-9">
+					<button type="submit" class="btn btn-primary">提交</button>
+					<button th:onclick="'javascript:layer_close()'" class="btn btn-danger" type="button">关闭</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div th:include="include::footer"></div>
+	<script src="/ajax/libs/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js" th:src="@{/ajax/libs/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js}"></script>
+	<script src="/ruoyi/elevator/status/edit.js" th:src="@{/ruoyi/elevator/status/edit.js}">
+	</script>
+</body>
+</html>

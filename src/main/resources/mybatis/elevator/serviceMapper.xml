@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.elevator.service.mapper.ServiceMapper">
+
+    <resultMap type="Service" id="ServiceResult">
+        <id     property="id"       column="id"        />
+        <result property="service_id"     column="service_id"      />
+        <result property="user_number"      column="user_number"       />
+        <result property="province"      column="province"       />
+        <result property="city"      column="city"       />
+        <result property="area"      column="area"       />
+        <result property="building"      column="building"       />
+        <result property="elevator_number"      column="elevator_number"       />
+        <result property="service_type"      column="service_type"       />
+        <result property="task_createtime"     column="task_createtime"      />
+        <result property="task_endtime"     column="task_endtime"      />
+        <result property="user_name"       column="user_name"     />
+        <result property="phonenumber"     column="phonenumber"/>
+    </resultMap>
+
+    <select id="selectServiceList" parameterType="Service" resultMap="ServiceResult">
+        select id,service_id,user_number,province,city,area,building,elevator_number,service_type,task_createtime, task_endtime from sys_task
+        <where>
+            <if test="searchValue != null and searchValue != ''">
+                AND role_name like concat(concat('%', #{searchValue}), '%') OR role_key like concat(concat('%', #{searchValue}), '%')
+            </if>
+        </where>
+    </select>
+
+    <!--<select id="selectServiceAll" resultMap="ServiceResult">
+        select task_id,sys_serviceId,user_loginname,task_createtime, task_endtime from sys_task
+    </select>-->
+
+    <insert id="insertTask" parameterType="Service" useGeneratedKeys="true" keyProperty="task_id">
+        insert into sys_task(
+        <if test="id != null and id != 0">id,</if>
+        <if test="service_id != null and service_id != ''">service_id,</if>
+        <if test="user_number != null and user_number != ''">user_number,</if>
+        <if test="province != null and province != ''">province,</if>
+        <if test="city != null and city != ''">city,</if>
+        <if test="area != null and area != ''">area,</if>
+        <if test="building != null and building != ''">building,</if>
+        <if test="elevator_number != null and elevator_number != ''">elevator_number,</if>
+        <if test="service_type != null and service_type != ''">service_type,</if>
+        <if test="task_createtime != null and task_createtime != ''">task_createtime,</if>
+        <if test="task_endtime != null and task_endtime != ''">task_endtime</if>
+        )values(
+        <if test="id != null and id != 0">#{id},</if>
+        <if test="service_id != null and service_id != ''">#{service_id},</if>
+        <if test="user_number != null and user_number != ''">#{user_number},</if>
+        <if test="province != null and province != ''">#{province},</if>
+        <if test="city != null and city != ''">#{city},</if>
+        <if test="area != null and area != ''">#{area},</if>
+        <if test="building != null and building != ''">#{building},</if>
+        <if test="elevator_number != null and elevator_number != ''">#{elevator_number},</if>
+        <if test="service_type != null and service_type != ''">#{service_type},</if>
+        <if test="task_createtime != null and task_createtime != ''">#{task_createtime},</if>
+        <if test="task_endtime != null and task_endtime != ''">#{task_endtime}</if>
+        )
+    </insert>
+    
+    
+    
+    <select id="selectServiceBySerivceId" parameterType="Long" resultMap="ServiceResult">
+    	select * from sys_task as t,sys_user as u 
+    	where t.user_number = u.login_name and t.service_id = #{id} ORDER BY t.task_createtime DESC LIMIT 1
+    </select>
+    
+    <!-- <select id="selectServiceById" parameterType="Long" resultMap="ServiceResult">
+        select id
+        from sys_task u
+        where u.id = #{id}
+    </select> -->
+    
+    
+    
+
+    <select id="selectTaskById" parameterType="Long" resultType="Integer">
+        select id
+        from sys_task u
+        where u.service_id = #{service_id} order by id desc limit 1
+    </select>
+    <!--<update id="updateElevatorStatus" parameterType="ServiceResult">
+        update sys_client
+        <set>
+            <if test="clientName != null and clientName != ''">client_name = #{clientName},</if>
+            <if test="clientOwnerLoginName != null and clientOwnerLoginName != ''">client_owner_loginname = #{clientOwnerLoginName}</if>
+        </set>
+        where 1=1
+        <if test="saleId != null">and sale_id = #{saleId}</if>
+    </update>
+
+    <select id="checkElevatorStatusUnique" parameterType="String" resultType="int">
+        select count(*) from sys_service where elevator_number=#{elevator_number}
+    </select>
+
+    -->
+
+</mapper>

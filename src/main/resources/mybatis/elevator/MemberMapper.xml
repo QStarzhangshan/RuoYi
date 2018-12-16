@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.elevator.member.mapper.MemberMapper">
+
+    <resultMap type="Member" id="MemberResult">
+        <id     property="user_id"       column="task_id"        />
+        <result property="dept_id"     column="dept_id"      />
+        <result property="user_name"     column="user_name"      />
+        <result property="email"      column="email"       />
+        <result property="phonenumber"     column="phonenumber"      />
+    </resultMap>
+
+    <select id="selectMemberList" parameterType="Member" resultMap="MemberResult">
+        select user_id,user_name,email,phonenumber from sys_user WHERE dept_id=103
+    </select>
+
+    <!--<select id="selectServiceAll" resultMap="ServiceResult">
+        select task_id,sys_serviceId,user_loginname,task_createtime, task_endtime from sys_task
+    </select>-->
+
+    <!--<insert id="insertTask" parameterType="Service" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_task(
+        <if test="task_id != null and task_id != 0">task_id,</if>
+        <if test="sys_serviceId != null and sys_serviceId != ''">sys_serviceId,</if>
+        <if test="user_loginname != null and user_loginname != ''">user_loginname,</if>
+        <if test="task_createtime != null and task_createtime != ''">task_createtime,</if>
+        <if test="task_endtime != null and task_endtime != ''">task_endtime</if>
+        )values(
+        <if test="task_id != null and task_id != 0">#{task_id},</if>
+        <if test="sys_serviceId != null and sys_serviceId != ''">#{sys_serviceId},</if>
+        <if test="user_loginname != null and user_loginname != ''">#{user_loginname},</if>
+        <if test="task_createtime != null and task_createtime != ''">#{task_createtime},</if>
+        <if test="task_endtime != null and task_endtime != ''">#{task_endtime}</if>
+        )
+    </insert>
+    <select id="selectServiceById" parameterType="Long" resultMap="ServiceResult">
+        select task_id
+        from sys_task u
+        where u.task_id = #{task_id}
+    </select>
+    <update id="updateElevatorStatus" parameterType="ServiceResult">
+        update sys_client
+        <set>
+            <if test="clientName != null and clientName != ''">client_name = #{clientName},</if>
+            <if test="clientOwnerLoginName != null and clientOwnerLoginName != ''">client_owner_loginname = #{clientOwnerLoginName}</if>
+        </set>
+        where 1=1
+        <if test="saleId != null">and sale_id = #{saleId}</if>
+    </update>
+
+    <select id="checkElevatorStatusUnique" parameterType="String" resultType="int">
+        select count(*) from sys_service where elevator_number=#{elevator_number}
+    </select>
+
+    -->
+
+</mapper>

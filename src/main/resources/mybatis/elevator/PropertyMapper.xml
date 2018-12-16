@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.elevator.property.mapper.AreaMapper">
+
+    <resultMap type="Area" id="AreaResult">
+        <id     property="id"       column="id"        />
+        <result property="dept_id"     column="dept_id"      />
+        <result property="dept_name"      column="dept_name"       />
+        <result property="area_name"      column="area_name"       />
+        <result property="province"      column="province"       />
+        <result property="city"      column="city"       />
+        <result property="area"      column="area"       />
+        <result property="address"      column="address"       />
+        <result property="create_time"      column="create_time"       />
+        <result property="elevator_number"      column="elevator_number"       />
+    </resultMap>
+	
+	<select id="findByDeptId" parameterType="long" resultType="String">
+		select d.dept_name from sys_dept d , sys_area a 
+		where 1=1
+		<if test="deptId != null and deptId != 0 ">,a.dept_id=#{deptId}</if>
+	</select>
+
+	<insert id="saveArea" parameterType="Area">
+		insert into sys_area(
+		<if test="area_name != null and area_name != ''">area_name</if>
+		<if test="province != null and province != ''">,province</if>
+		<if test="city != null and city != ''">,city</if>
+		<if test="area != null and area != ''">,area</if>
+		<if test="address != null and address != ''">,address</if>
+		<if test="create_time != null and create_time != ''">,create_time</if>
+		)values(
+		<if test="area_name != null and area_name != ''">#{area_name}</if>
+		<if test="province != null and province != ''">,#{province}</if>
+		<if test="city != null and city != ''">,#{city}</if>
+		<if test="area != null and area != ''">,#{area}</if>
+		<if test="address != null and address != ''">,#{address}</if>
+		<if test="create_time != null and create_time != ''">,#{create_time}</if>
+		)
+	</insert>
+
+	<select id="selectAreaList" resultMap="AreaResult">
+		select * from sys_area 
+	</select>
+
+</mapper>

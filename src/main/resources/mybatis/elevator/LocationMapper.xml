@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.elevator.location.mapper.LocationMapper">
+
+    <resultMap type="Location" id="LocationResult">
+        <id     property="id"       column="id"        />
+        <result property="latitude_longitude"     column="latitude_longitude"      />
+    </resultMap>
+
+    <select id="getLocation" parameterType="Location" resultMap="LocationResult">
+        select id,latitude_longitude from sys_location
+    </select>
+
+    <!--<select id="selectServiceAll" resultMap="ServiceResult">
+        select task_id,sys_serviceId,user_loginname,task_createtime, task_endtime from sys_task
+    </select>-->
+    <!--<update id="updateElevatorStatus" parameterType="ServiceResult">
+        update sys_client
+        <set>
+            <if test="clientName != null and clientName != ''">client_name = #{clientName},</if>
+            <if test="clientOwnerLoginName != null and clientOwnerLoginName != ''">client_owner_loginname = #{clientOwnerLoginName}</if>
+        </set>
+        where 1=1
+        <if test="saleId != null">and sale_id = #{saleId}</if>
+    </update>
+
+    <select id="checkElevatorStatusUnique" parameterType="String" resultType="int">
+        select count(*) from sys_service where elevator_number=#{elevator_number}
+    </select>
+
+    -->
+
+</mapper>

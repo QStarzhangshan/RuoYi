@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.elevator.status.mapper.ElevatorStatusMapper">
+
+    <resultMap type="ElevatorStatus" id="ElevatorStatusResult">
+        <id     property="id"       column="client_id"        />
+        <result property="user_number"     column="user_number"      />
+        <result property="client_name"     column="client_name"      />
+        <result property="ladder_number"     column="ladder_number"      />
+        <result property="model"     column="model"      />
+        <result property="portal_door"     column="portal_door"      />
+        <result property="serial_number"     column="serial_number"      />
+        <result property="registration_code"     column="registration_code"      />
+        <result property="first_certificate"     column="first_certificate"      />
+        <result property="payment_method"     column="payment_method"      />
+        <result property="contract_time"     column="contract_time"      />
+        <result property="contact_name"      column="contact_name"      />
+        <result property="contact_phone"     column="contact_phone"      />
+        <result property="address"     column="address"      />
+        <result property="province"      column="province"       />
+        <result property="city"     column="city"      />
+        <result property="area"     column="area"      />
+        <result property="building"     column="building"      />
+        <result property="elevator_number"     column="elevator_number"      />
+        <result property="service_type"     column="service_type"      />
+        <result property="run_time"     column="run_time"      />
+        <result property="contract_btime"     column="contract_btime"      />
+        <result property="contract_etime"     column="contract_etime"      />
+    </resultMap>
+
+    <select id="selectElevatorStatusList" parameterType="ElevatorStatus" resultMap="ElevatorStatusResult">
+        select id,user_number,client_name,ladder_number,model,portal_door,serial_number,registration_code,first_certificate,payment_method,contract_time,contact_name,contact_phone,address,province,city, area,building,elevator_number,service_type,run_time from sys_elevator
+        <where>
+            <if test="searchValue != null and searchValue != ''">
+                AND role_name like concat(concat('%', #{searchValue}), '%') OR role_key like concat(concat('%', #{searchValue}), '%')
+            </if>
+        </where>
+    </select>
+
+	<select id="selectIotDevice" resultMap="ElevatorStatusResult">
+			SELECT e.* FROM sys_elevator e,iot_device d
+		WHERE d.`product_name` = e.registration_code
+	</select>
+
+    <select id="selectElevatorStatusAll" resultMap="ElevatorStatusResult">
+        selectid,user_number,client_name,ladder_number,model,portal_door,serial_number,registration_code,first_certificate,payment_method,contract_time,phone,address,user_loginname,province,city, area,building,elevator_number,service_type,run_time from sys_elevator
+    </select>
+
+    <insert id="insertElevatorStatus" parameterType="ElevatorStatus" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_service(
+        <if test="id != null and id != 0">id,</if>
+        <if test="province != null and province != ''">province,</if>
+        <if test="city != null and city != ''">city,</if>
+        <if test="area != null and area != ''">area,</if>
+        <if test="building != null and building != ''">building,</if>
+        <if test="elevator_number != null and elevator_number != ''">elevator_number,</if>
+        <if test="service_type != null and service_type != ''">service_type,</if>
+        <if test="run_time != null and run_time != ''">run_time</if>
+        )values(
+        <if test="id != null and id != 0">#{id},</if>
+        <if test="province != null and province != ''">#{province},</if>
+        <if test="city != null and city != ''">#{city},</if>
+        <if test="area != null and area != ''">#{area},</if>
+        <if test="building != null and building != ''">#{building},</if>
+        <if test="elevator_number != null and elevator_number != ''">#{elevator_number},</if>
+        <if test="service_type != null and service_type != ''">#{service_type},</if>
+        <if test="run_time != null and run_time != ''">#{run_time}</if>
+        )
+    </insert>
+
+    <update id="updateElevatorStatus" parameterType="ElevatorStatus">
+        update sys_client
+        <set>
+            <if test="clientName != null and clientName != ''">client_name = #{clientName},</if>
+            <if test="clientOwnerLoginName != null and clientOwnerLoginName != ''">client_owner_loginname = #{clientOwnerLoginName}</if>
+        </set>
+        where 1=1
+        <if test="saleId != null">and sale_id = #{saleId}</if>
+    </update>
+
+    <select id="checkElevatorStatusUnique" parameterType="String" resultType="int">
+        select count(*) from sys_service where elevator_number=#{elevator_number}
+    </select>
+
+    <select id="selectElevatorStatusByUserName" parameterType="Long" resultMap="ElevatorStatusResult">
+        select *
+        from sys_elevator u
+        where u.id = #{id}
+    </select>
+
+	<select id="findAllregistrationCode" resultType="String">
+		select registration_code 
+		from sys_service
+	</select>
+
+    <!--<select id="selectRolesByUserId" parameterType="Long" resultMap="RoleResult">
+        SELECT r.role_id, r.role_name, r.role_key
+        FROM sys_user u
+        LEFT JOIN sys_user_role ur ON u.user_id = ur.user_id
+        LEFT JOIN sys_role r ON ur.role_id = r.role_id
+        WHERE ur.user_id = #{userId}
+    </select>
+
+    <select id="selectRolesAll" resultMap="RoleResult">
+        SELECT role_id, role_name, role_key, role_sort, status, create_time, remark FROM sys_role
+    </select>
+
+    <select id="selectRoleById" parameterType="Long" resultMap="RoleResult">
+        select role_id, role_name, role_key, role_sort, status, create_time, remark
+        from sys_role u
+        where u.role_id = #{roleId}
+    </select>
+
+    <select id="checkRoleNameUnique" parameterType="String" resultMap="RoleResult">
+        select role_id, role_name, role_key, role_sort, status, create_time
+        from sys_role where role_name=#{roleName}
+    </select>
+
+    <delete id="deleteRoleById" parameterType="Long">
+        delete from sys_role where role_id = #{roleId}
+    </delete>
+
+    <delete id="batchDeleteRole" parameterType="Long">
+        delete from sys_role where role_id in
+        <foreach collection="array" item="roleId" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
+    </delete>
+
+    <update id="updateRole" parameterType="Role">
+        update sys_role
+        <set>
+            <if test="roleName != null and roleName != ''">role_name = #{roleName},</if>
+            <if test="roleKey != null and roleKey != ''">role_key = #{roleKey},</if>
+            <if test="roleSort != null and roleSort != ''">role_sort = #{roleSort},</if>
+            <if test="status !=null">status = #{status},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            update_time = sysdate()
+        </set>
+        where 1=1
+        <if test="roleId != null">and role_id = #{roleId}</if>
+    </update>
+
+    <insert id="insertRole" parameterType="Role" useGeneratedKeys="true" keyProperty="roleId">
+        insert into sys_role(
+        <if test="roleId != null and roleId != 0">role_id,</if>
+        <if test="roleName != null and roleName != ''">role_name,</if>
+        <if test="roleKey != null and roleKey != ''">role_key,</if>
+        <if test="roleSort != null and roleSort != ''">role_sort,</if>
+        <if test="status !=null and status != ''">status,</if>
+        <if test="remark != null and remark != ''">remark,</if>
+        <if test="createBy != null and createBy != ''">create_by,</if>
+        create_time
+        )values(
+        <if test="roleId != null and roleId != 0">#{roleId},</if>
+        <if test="roleName != null and roleName != ''">#{roleName},</if>
+        <if test="roleKey != null and roleKey != ''">#{roleKey},</if>
+        <if test="roleSort != null and roleSort != ''">#{roleSort},</if>
+        <if test="status !=null and status != ''">#{status},</if>
+        <if test="remark != null and remark != ''">#{remark},</if>
+        <if test="createBy != null and createBy != ''">#{createBy},</if>
+        sysdate()
+        )
+    </insert>-->
+
+</mapper>

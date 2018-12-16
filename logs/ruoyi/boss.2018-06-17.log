@@ -1,0 +1,123 @@
+16:02:25.996 [main] INFO  com.ruoyi.RuoYiApplication - Starting RuoYiApplication on ZH with PID 23560 (started by lenovo in C:\Users\lenovo\Desktop\开发的网站后台权限管理系统\3838995922584576\RuoYi)
+16:02:26.012 [main] DEBUG com.ruoyi.RuoYiApplication - Running with Spring Boot v1.5.10.RELEASE, Spring v4.3.14.RELEASE
+16:02:26.012 [main] INFO  com.ruoyi.RuoYiApplication - The following profiles are active: druid
+16:02:26.711 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.6.Final
+16:02:33.231 [main] INFO  org.apache.shiro.cache.ehcache.EhCacheManager - Cache with name 'com.ruoyi.framework.shiro.realm.UserRealm.authorizationCache' does not yet exist.  Creating now.
+16:02:33.233 [main] INFO  org.apache.shiro.cache.ehcache.EhCacheManager - Added EhCache named [com.ruoyi.framework.shiro.realm.UserRealm.authorizationCache]
+16:02:34.510 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+16:02:36.252 [main] INFO  org.apache.shiro.cache.ehcache.EhCacheManager - Using existing EHCache named [loginRecordCache]
+16:02:38.881 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+16:02:38.884 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.27
+16:02:39.083 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+16:02:40.581 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+16:02:40.616 [main] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+16:02:40.617 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.0 created.
+16:02:40.652 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'RuoyiScheduler' with instanceId 'ZH1529222560593'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 20 threads.
+  Using job-store 'org.springframework.scheduling.quartz.LocalDataSourceJobStore' - which supports persistence. and is clustered.
+
+16:02:40.652 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'RuoyiScheduler' initialized from an externally provided properties instance.
+16:02:40.653 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.0
+16:02:40.657 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@7e351d7
+16:02:40.792 [main] DEBUG com.ruoyi.project.monitor.job.mapper.JobMapper.selectJobAll - ==>  Preparing: SELECT job_id, job_name, job_group, method_name, params, cron_expression, status, create_by, create_time FROM sys_job 
+16:02:41.056 [main] DEBUG com.ruoyi.project.monitor.job.mapper.JobMapper.selectJobAll - ==> Parameters: 
+16:02:41.167 [main] DEBUG com.ruoyi.project.monitor.job.mapper.JobMapper.selectJobAll - <==      Total: 2
+16:02:44.525 [main] WARN  org.thymeleaf.templatemode.TemplateMode - [THYMELEAF][main] Template Mode 'LEGACYHTML5' is deprecated. Using Template Mode 'HTML' instead.
+16:02:46.755 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-80"]
+16:02:46.788 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-80"]
+16:02:46.816 [main] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+16:02:46.861 [main] INFO  com.ruoyi.RuoYiApplication - Started RuoYiApplication in 23.384 seconds (JVM running for 29.128)
+16:02:47.868 [Quartz Scheduler [RuoyiScheduler]] INFO  org.quartz.core.QuartzScheduler - Scheduler RuoyiScheduler_$_ZH1529222560593 started.
+16:02:55.549 [http-nio-80-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+16:02:55.840 [http-nio-80-exec-1] INFO  org.apache.shiro.session.mgt.AbstractValidatingSessionManager - Enabling session validation scheduler...
+16:02:55.840 [http-nio-80-exec-1] DEBUG com.ruoyi.framework.shiro.web.session.SpringSessionValidationScheduler - Scheduling session validation job using Spring Scheduler with session validation interval of [600000]ms...
+16:02:55.841 [http-nio-80-exec-1] DEBUG com.ruoyi.framework.shiro.web.session.SpringSessionValidationScheduler - Session validation job successfully scheduled with Spring Scheduler.
+16:02:55.843 [http-nio-80-exec-1] INFO  org.apache.shiro.cache.ehcache.EhCacheManager - Using existing EHCache named [shiro-activeSessionCache]
+16:02:55.852 [http-nio-80-exec-1] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.selectOnlineById - ==>  Preparing: select * from sys_user_online where sessionid = ? 
+16:02:55.854 [http-nio-80-exec-1] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.selectOnlineById - ==> Parameters: 7820B5006AC24A6AFF03611380B9013D(String)
+16:02:55.971 [http-nio-80-exec-1] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.selectOnlineById - <==      Total: 0
+16:02:56.842 [pool-2-thread-1] INFO  com.ruoyi.framework.shiro.web.session.OnlineWebSessionManager - invalidation sessions...
+16:02:56.876 [pool-2-thread-1] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.selectOnlineByExpired - ==>  Preparing: SELECT * FROM sys_user_online o WHERE o.last_access_time <= ? ORDER BY o.last_access_time ASC 
+16:02:56.878 [pool-2-thread-1] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.selectOnlineByExpired - ==> Parameters: 2018-06-17 15:32:56(String)
+16:02:56.886 [pool-2-thread-1] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.selectOnlineByExpired - <==      Total: 1
+16:02:56.889 [pool-2-thread-1] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.selectOnlineById - ==>  Preparing: select * from sys_user_online where sessionid = ? 
+16:02:56.890 [pool-2-thread-1] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.selectOnlineById - ==> Parameters: 6f46189b-855e-4548-aeec-ebeada2077ff(String)
+16:02:56.897 [pool-2-thread-1] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.selectOnlineById - <==      Total: 1
+16:02:56.903 [pool-2-thread-1] DEBUG com.ruoyi.framework.shiro.web.session.OnlineWebSessionManager - Invalidated session with id [6f46189b-855e-4548-aeec-ebeada2077ff] (stopped)
+16:02:56.904 [pool-2-thread-1] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.selectOnlineById - ==>  Preparing: select * from sys_user_online where sessionid = ? 
+16:02:56.905 [pool-2-thread-1] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.selectOnlineById - ==> Parameters: 6f46189b-855e-4548-aeec-ebeada2077ff(String)
+16:02:56.908 [pool-2-thread-1] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.selectOnlineById - <==      Total: 1
+16:02:56.909 [pool-2-thread-1] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.deleteOnlineById - ==>  Preparing: delete from sys_user_online where sessionId = ? 
+16:02:56.910 [pool-2-thread-1] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.deleteOnlineById - ==> Parameters: 6f46189b-855e-4548-aeec-ebeada2077ff(String)
+16:02:56.914 [pool-2-thread-1] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.deleteOnlineById - <==    Updates: 1
+16:02:56.915 [pool-2-thread-1] INFO  com.ruoyi.framework.shiro.web.session.OnlineWebSessionManager - Finished invalidation session. [1] sessions were stopped.
+16:03:01.975 [http-nio-80-exec-4] DEBUG com.ruoyi.project.system.user.mapper.UserMapper.selectUserByLoginName - ==>  Preparing: select u.user_id, u.dept_id, u.login_name, u.user_name, u.email, u.phonenumber, u.sex, u.avatar, u.password, u.salt, u.status, u.refuse_des, u.login_ip, u.login_date, u.create_time, d.dept_id, d.parent_id, d.dept_name, d.order_num, d.status as dept_status from sys_user u left join sys_dept d on u.dept_id = d.dept_id left join sys_user_role ur on u.user_id = ur.user_id where u.login_name = ? 
+16:03:01.980 [http-nio-80-exec-4] DEBUG com.ruoyi.project.system.user.mapper.UserMapper.selectUserByLoginName - ==> Parameters: admin(String)
+16:03:02.028 [http-nio-80-exec-4] DEBUG com.ruoyi.project.system.user.mapper.UserMapper.selectUserByLoginName - <==      Total: 1
+16:03:02.078 [http-nio-80-exec-4] INFO  sys-user - [0:0:0:0:0:0:0:1][admin][Success][登录成功]
+16:03:02.100 [http-nio-80-exec-4] DEBUG com.ruoyi.project.monitor.logininfor.mapper.LogininforMapper.insertLogininfor - ==>  Preparing: insert into sys_logininfor (login_name, status, ipaddr, browser, os, msg, login_time) values (?, ?, ?, ?, ?, ?, sysdate()) 
+16:03:02.107 [http-nio-80-exec-4] DEBUG com.ruoyi.project.monitor.logininfor.mapper.LogininforMapper.insertLogininfor - ==> Parameters: admin(String), 0(String), 0:0:0:0:0:0:0:1(String), Chrome(String), Windows 10(String), 登录成功(String)
+16:03:02.137 [http-nio-80-exec-4] DEBUG com.ruoyi.project.monitor.logininfor.mapper.LogininforMapper.insertLogininfor - <==    Updates: 1
+16:03:02.329 [http-nio-80-exec-4] DEBUG com.ruoyi.project.system.user.mapper.UserMapper.updateUser - ==>  Preparing: update sys_user SET dept_id = ?, login_name = ?, user_name = ?, email = ?, phonenumber = ?, sex = ?, password = ?, salt = ?, status = ?, refuse_des = ?, login_ip = ?, login_date = ?, update_time = sysdate() where 1=1 and user_id = ? 
+16:03:02.335 [http-nio-80-exec-4] DEBUG com.ruoyi.project.system.user.mapper.UserMapper.updateUser - ==> Parameters: 106(Long), admin(String), 启明星(String), qstar@163.com(String), 15888888888(String), 1(String), 29c67a30398638269fe600f73a054934(String), 111111(String), 0(Integer), 正常(String), 0:0:0:0:0:0:0:1(String), 2018-06-17 16:03:02.14(Timestamp), 1(Long)
+16:03:02.339 [http-nio-80-exec-4] DEBUG com.ruoyi.project.system.user.mapper.UserMapper.updateUser - <==    Updates: 1
+16:03:02.571 [http-nio-80-exec-10] DEBUG com.ruoyi.project.system.menu.mapper.MenuMapper.selectMenusByUserId - ==>  Preparing: select distinct m.menu_id, m.parent_id, m.menu_name, m.url, m.perms , m.menu_type, m.icon, m.order_num, m.create_time from sys_menu m left join sys_role_menu rm on m.menu_id = rm.menu_id left join sys_user_role ur on rm.role_id = ur.role_id where ur.user_id = ? and m.menu_type in ('M', 'C') and m.visible = 0 order by m.order_num 
+16:03:02.577 [http-nio-80-exec-10] DEBUG com.ruoyi.project.system.menu.mapper.MenuMapper.selectMenusByUserId - ==> Parameters: 1(Long)
+16:03:02.664 [http-nio-80-exec-10] DEBUG com.ruoyi.project.system.menu.mapper.MenuMapper.selectMenusByUserId - <==      Total: 21
+16:03:02.773 [http-nio-80-exec-10] DEBUG com.ruoyi.project.system.config.mapper.ConfigMapper.selectConfigByKey - ==>  Preparing: select config_id, config_name, config_key, config_value, config_type, create_by, create_time, update_by, update_time, remark from sys_config where config_key = ? 
+16:03:02.775 [http-nio-80-exec-10] DEBUG com.ruoyi.project.system.config.mapper.ConfigMapper.selectConfigByKey - ==> Parameters: sys.index.skinName(String)
+16:03:02.790 [http-nio-80-exec-10] DEBUG com.ruoyi.project.system.config.mapper.ConfigMapper.selectConfigByKey - <==      Total: 1
+16:03:02.999 [http-nio-80-exec-8] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.saveOnline - ==>  Preparing: replace into sys_user_online(sessionId, login_name, dept_name, ipaddr, browser, os, status, start_timestsamp, last_access_time, expire_time) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) 
+16:03:03.140 [http-nio-80-exec-8] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.saveOnline - ==> Parameters: 38facf47-cb48-47fd-bffa-17241005f9f5(String), admin(String), 销售一部(String), 0:0:0:0:0:0:0:1(String), Chrome(String), Windows 10(String), on_line(String), 2018-06-17 16:02:55.982(Timestamp), 2018-06-17 16:03:02.994(Timestamp), 1800000(Long)
+16:03:03.145 [http-nio-80-exec-8] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.saveOnline - <==    Updates: 1
+16:03:10.731 [http-nio-80-exec-1] DEBUG com.ruoyi.project.system.role.mapper.RoleMapper.selectRolesByUserId - ==>  Preparing: SELECT r.role_id, r.role_name, r.role_key FROM sys_user u LEFT JOIN sys_user_role ur ON u.user_id = ur.user_id LEFT JOIN sys_role r ON ur.role_id = r.role_id WHERE ur.user_id = ? 
+16:03:10.733 [http-nio-80-exec-1] DEBUG com.ruoyi.project.system.role.mapper.RoleMapper.selectRolesByUserId - ==> Parameters: 1(Long)
+16:03:10.756 [http-nio-80-exec-1] DEBUG com.ruoyi.project.system.role.mapper.RoleMapper.selectRolesByUserId - <==      Total: 1
+16:03:10.758 [http-nio-80-exec-1] DEBUG com.ruoyi.project.system.menu.mapper.MenuMapper.selectPermsByUserId - ==>  Preparing: select distinct m.perms from sys_menu m left join sys_role_menu rm on m.menu_id = rm.menu_id left join sys_user_role ur on rm.role_id = ur.role_id where ur.user_id = ? 
+16:03:10.759 [http-nio-80-exec-1] DEBUG com.ruoyi.project.system.menu.mapper.MenuMapper.selectPermsByUserId - ==> Parameters: 1(Long)
+16:03:10.763 [http-nio-80-exec-1] DEBUG com.ruoyi.project.system.menu.mapper.MenuMapper.selectPermsByUserId - <==      Total: 91
+16:03:11.615 [http-nio-80-exec-6] DEBUG com.ruoyi.project.user.contract.mapper.ContractMapper.selectContractList_COUNT - ==>  Preparing: SELECT count(0) FROM sys_contract 
+16:03:11.616 [http-nio-80-exec-6] DEBUG com.ruoyi.project.user.contract.mapper.ContractMapper.selectContractList_COUNT - ==> Parameters: 
+16:03:11.642 [http-nio-80-exec-6] DEBUG com.ruoyi.project.user.contract.mapper.ContractMapper.selectContractList_COUNT - <==      Total: 1
+16:03:11.646 [http-nio-80-exec-6] DEBUG com.ruoyi.project.user.contract.mapper.ContractMapper.selectContractList - ==>  Preparing: SELECT contract_id, contract_client, contract_topic, contract_owner FROM sys_contract order by contract_id asc LIMIT ? 
+16:03:11.649 [http-nio-80-exec-6] DEBUG com.ruoyi.project.user.contract.mapper.ContractMapper.selectContractList - ==> Parameters: 10(Integer)
+16:03:11.651 [http-nio-80-exec-6] DEBUG com.ruoyi.project.user.contract.mapper.ContractMapper.selectContractList - <==      Total: 4
+16:03:36.733 [http-nio-80-exec-5] DEBUG com.ruoyi.project.system.role.mapper.RoleMapper.selectRolesByUserId - ==>  Preparing: SELECT r.role_id, r.role_name, r.role_key FROM sys_user u LEFT JOIN sys_user_role ur ON u.user_id = ur.user_id LEFT JOIN sys_role r ON ur.role_id = r.role_id WHERE ur.user_id = ? 
+16:03:36.733 [http-nio-80-exec-5] DEBUG com.ruoyi.project.system.role.mapper.RoleMapper.selectRolesByUserId - ==> Parameters: 1(Long)
+16:03:36.735 [http-nio-80-exec-5] DEBUG com.ruoyi.project.system.role.mapper.RoleMapper.selectRolesByUserId - <==      Total: 1
+16:03:36.737 [http-nio-80-exec-5] DEBUG com.ruoyi.project.system.post.mapper.PostMapper.selectPostsByUserId - ==>  Preparing: SELECT p.post_id, p.post_name, p.post_code FROM sys_user u LEFT JOIN sys_user_post up ON u.user_id = up.user_id LEFT JOIN sys_post p ON up.post_id = p.post_id WHERE up.user_id = ? 
+16:03:36.739 [http-nio-80-exec-5] DEBUG com.ruoyi.project.system.post.mapper.PostMapper.selectPostsByUserId - ==> Parameters: 1(Long)
+16:03:36.772 [http-nio-80-exec-5] DEBUG com.ruoyi.project.system.post.mapper.PostMapper.selectPostsByUserId - <==      Total: 1
+16:03:41.176 [http-nio-80-exec-1] DEBUG com.ruoyi.project.user.client.mapper.ClientMapper.selectClientList_COUNT - ==>  Preparing: SELECT count(0) FROM sys_client 
+16:03:41.178 [http-nio-80-exec-1] DEBUG com.ruoyi.project.user.client.mapper.ClientMapper.selectClientList_COUNT - ==> Parameters: 
+16:03:41.193 [http-nio-80-exec-1] DEBUG com.ruoyi.project.user.client.mapper.ClientMapper.selectClientList_COUNT - <==      Total: 1
+16:03:41.195 [http-nio-80-exec-1] DEBUG com.ruoyi.project.user.client.mapper.ClientMapper.selectClientList - ==>  Preparing: SELECT client_id, sale_id, client_name, client_owner_loginname FROM sys_client order by client_id asc LIMIT ? 
+16:03:41.197 [http-nio-80-exec-1] DEBUG com.ruoyi.project.user.client.mapper.ClientMapper.selectClientList - ==> Parameters: 10(Integer)
+16:03:41.202 [http-nio-80-exec-1] DEBUG com.ruoyi.project.user.client.mapper.ClientMapper.selectClientList - <==      Total: 5
+16:04:09.458 [http-nio-80-exec-9] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.saveOnline - ==>  Preparing: replace into sys_user_online(sessionId, login_name, dept_name, ipaddr, browser, os, status, start_timestsamp, last_access_time, expire_time) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) 
+16:04:09.460 [http-nio-80-exec-9] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.saveOnline - ==> Parameters: 38facf47-cb48-47fd-bffa-17241005f9f5(String), admin(String), 销售一部(String), 0:0:0:0:0:0:0:1(String), Chrome(String), Windows 10(String), on_line(String), 2018-06-17 16:02:55.982(Timestamp), 2018-06-17 16:04:09.458(Timestamp), 1800000(Long)
+16:04:09.464 [http-nio-80-exec-9] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.saveOnline - <==    Updates: 2
+16:04:09.940 [http-nio-80-exec-4] DEBUG com.ruoyi.project.system.user.mapper.UserMapper.selectUserList_COUNT - ==>  Preparing: SELECT count(0) FROM sys_user 
+16:04:09.942 [http-nio-80-exec-4] DEBUG com.ruoyi.project.system.user.mapper.UserMapper.selectUserList_COUNT - ==> Parameters: 
+16:04:09.943 [http-nio-80-exec-4] DEBUG com.ruoyi.project.system.user.mapper.UserMapper.selectUserList_COUNT - <==      Total: 1
+16:04:09.947 [http-nio-80-exec-4] DEBUG com.ruoyi.project.system.user.mapper.UserMapper.selectUserList - ==>  Preparing: SELECT user_id, dept_id, login_name, user_name, email, phonenumber, password, sex, avatar, salt, user_type, status, refuse_des, create_by, create_time FROM sys_user order by create_time desc LIMIT ? 
+16:04:09.949 [http-nio-80-exec-4] DEBUG com.ruoyi.project.system.user.mapper.UserMapper.selectUserList - ==> Parameters: 10(Integer)
+16:04:09.953 [http-nio-80-exec-4] DEBUG com.ruoyi.project.system.user.mapper.UserMapper.selectUserList - <==      Total: 4
+16:04:09.959 [http-nio-80-exec-10] DEBUG com.ruoyi.project.system.dept.mapper.DeptMapper.selectDeptAll - ==>  Preparing: select dept_id, parent_id, dept_name, order_num, leader, phone, email, status, create_by, create_time from sys_dept 
+16:04:09.960 [http-nio-80-exec-10] DEBUG com.ruoyi.project.system.dept.mapper.DeptMapper.selectDeptAll - ==> Parameters: 
+16:04:09.966 [http-nio-80-exec-10] DEBUG com.ruoyi.project.system.dept.mapper.DeptMapper.selectDeptAll - <==      Total: 10
+16:07:22.794 [http-nio-80-exec-10] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.saveOnline - ==>  Preparing: replace into sys_user_online(sessionId, login_name, dept_name, ipaddr, browser, os, status, start_timestsamp, last_access_time, expire_time) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) 
+16:07:22.796 [http-nio-80-exec-10] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.saveOnline - ==> Parameters: 38facf47-cb48-47fd-bffa-17241005f9f5(String), admin(String), 销售一部(String), 0:0:0:0:0:0:0:1(String), Chrome(String), Windows 10(String), on_line(String), 2018-06-17 16:02:55.982(Timestamp), 2018-06-17 16:07:22.793(Timestamp), 1800000(Long)
+16:07:22.800 [http-nio-80-exec-10] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.saveOnline - <==    Updates: 2
+16:07:23.111 [http-nio-80-exec-1] DEBUG com.ruoyi.project.system.menu.mapper.MenuMapper.selectMenuAll - ==>  Preparing: select menu_id, menu_name, parent_id, order_num, url, menu_type, visible, perms, icon, create_by, create_time from sys_menu 
+16:07:23.113 [http-nio-80-exec-1] DEBUG com.ruoyi.project.system.menu.mapper.MenuMapper.selectMenuAll - ==> Parameters: 
+16:07:23.132 [http-nio-80-exec-1] DEBUG com.ruoyi.project.system.menu.mapper.MenuMapper.selectMenuAll - <==      Total: 94
+16:12:56.844 [pool-2-thread-1] INFO  com.ruoyi.framework.shiro.web.session.OnlineWebSessionManager - invalidation sessions...
+16:12:56.847 [pool-2-thread-1] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.selectOnlineByExpired - ==>  Preparing: SELECT * FROM sys_user_online o WHERE o.last_access_time <= ? ORDER BY o.last_access_time ASC 
+16:12:56.849 [pool-2-thread-1] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.selectOnlineByExpired - ==> Parameters: 2018-06-17 15:42:56(String)
+16:12:56.852 [pool-2-thread-1] DEBUG com.ruoyi.project.monitor.online.mapper.UserOnlineMapper.selectOnlineByExpired - <==      Total: 0
+16:12:56.853 [pool-2-thread-1] INFO  com.ruoyi.framework.shiro.web.session.OnlineWebSessionManager - Finished invalidation session. No sessions were stopped.

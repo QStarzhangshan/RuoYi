@@ -1,0 +1,233 @@
+<head>
+    <meta charset="utf-8">
+    <!--  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" name="viewport"/>  --> 
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        body, html{width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}
+        #allmap{height:800px;width:100%;}
+        #r-result{width:100%; font-size:14px;}
+        *{
+            margin:0;
+            padding:0;
+        }
+        .selected{
+            background:#2f4050;
+            color:white;
+        }
+        .tab_menu th{
+            width:33.333%;
+        }
+        .hide{
+            display: none;
+        }
+        .box{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:15px;
+        }
+        .box tr{
+            border-bottom:1px solid #ccc;
+            padding:10px 0 10px 0;
+        }
+        .box tr:nth-child(odd) {
+            background:#EAF2D3;
+        }
+        .box tr:nth-child(even) {
+            background:#f2f2f2;
+        }
+        .box td{
+            font-size:1em;
+            border:1px solid #98bf21;
+            padding:10px 7px 10px 7px;
+        }
+        .box tr td.title{
+            border-right: 1px solid #ccc;
+            width:25%;
+        }
+        .anchorBL{display:none}
+    </style>
+    <link rel="stylesheet" href="https://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!--<script src="../../../static/js/jquery-3.3.1.min.js"></script>-->
+    <script  src="../../../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=U9dKdTjzAaP9Wt0YpL3evGeDUwS4cQYO"></script>
+    <script type="text/javascript" src="https://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <title>城市名定位</title>
+</head>
+<body>
+<div id="app" style="margin:10px 0 10px 20px">
+    <el-cascader
+            :options="options"
+            :show-all-levels="false"
+            v-model="selectedOptions3"
+            @change="handleItemChange"
+    ></el-cascader>
+</div>
+<div id="allmap"></div>
+</body>  
+</html>
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                options: [{
+                    value: '北京',
+                    label: '北京',
+                    children: [{
+                        value: '北京',
+                        label: '北京',
+                    }]
+                },{
+                    value: '陕西',
+                    label: '陕西',
+                    children: [{
+                        value: '西安',
+                        label: '西安',
+                    }, {
+                        value: '陕北',
+                        label: '陕北',
+                    }]
+                }, {
+                    value: '浙江',
+                    label: '浙江',
+                    children: [{
+                        value: '杭州',
+                        label: '杭州',
+                    }]
+                }, {
+                    value: '福建',
+                    label: '福建',
+                    children: [{
+                        value: '泉州',
+                        label: '泉州'
+                    }]
+                }],
+                selectedOptions3: ['北京', '北京']
+            };
+        },
+        methods:{
+            handleItemChange:function(val){
+                console.log(val[1]);
+                processLo(val[1])
+            }
+        }
+    })
+    function processLo(val){
+        map.centerAndZoom(val,9);
+    }
+    var map = new BMap.Map("allmap");
+    var point = new BMap.Point(116.463, 39.924);
+    map.centerAndZoom(point,9);
+    var marker = new BMap.Marker(point);
+    map.addOverlay(marker);	
+    $(function () {
+        $.ajax({
+            type:'GET',
+            url:'http://47.93.103.22:8080/login/getinfobyMap',
+            //url:'http://localhost:85/getinfobyMap',
+            //url:'https://www.qstar.xin/login/getinfobyMap',
+            //url:'https://www.easy-mock.com/mock/5b4ca9f369bf673806aea66f/example/mock',
+            dataType:'json',
+            success:function(res){
+            	console.log(res.clientbymap)
+                processData(res.clientbymap)
+            },
+            fail:function(res){
+            	console.log(res)
+            }
+        })
+    });
+    var opts = {
+        width : 350,     // 信息窗口宽度
+        height: 350,     // 信息窗口高度
+        enableMessage:true,//设置允许信息窗发送短息
+    };
+    var i=0;
+    map.addOverlay(marker);
+    map.enableScrollWheelZoom(true);
+    function markerFun (points,client_name,maintenance_company,task_createtime,user_name,phonenumber,address,status,registration_code,contact_name,contact_phone) {
+        console.log(points)
+        if(status=="故障"){
+            var myIcon = new BMap.Icon("../img/ele2.png", new BMap.Size(30,30));
+        }else if(status=="运行正常"){
+            var myIcon = new BMap.Icon("../img/ele3.png", new BMap.Size(30,30));
+        }else{
+            var myIcon = new BMap.Icon("../img/ele.png", new BMap.Size(30,30));
+        }
+
+        var markers = new BMap.Marker(points,{icon:myIcon});
+        map.addOverlay(markers);
+        var content ='<div class="tab">'+
+            '<h2 style="text-align:center;margin-bottom:10px;">'+'电梯信息'+'</h2>'+
+            '<table class="tab_menu">'+
+            '<tr style="background-color: #f2f2f2">'+
+            '<th class="selected first" onclick="menu_li_clicked(this)">电梯状态</th>'+
+            '<th onclick="menu_li_clicked(this)">维保信息</th>'+
+            '<th style="width:130px;height:40px;" onclick="menu_li_clicked(this)">远程照片</th>'+
+            '</tr>'+
+            '<tr id="tab_box">'+
+            '<td colspan="3"><table class="box"><tr><td class="title">所有单位</td><td>'+client_name+'</td></tr><tr><td class="title">质检编号</td><td>'+registration_code+'</td></tr><tr><td class="title">电梯地址</td><td>'+address+'</td></tr><tr><td class="title">联系人</td><td>'+contact_name+'</td></tr><tr><td class="title">联系电话</td><td>'+contact_phone+'</td></tr></table>'+
+            '<table class="box hide"><tr><td class="title">维保状态</td><td>'+status+'</td></tr><tr><td class="title">维保公司</td><td>'+maintenance_company+'</td></tr><tr><td class="title">维保人员</td><td>'+user_name+'</td></tr><tr><td class="title">联系方式</td><td>'+phonenumber+'</td></tr><tr><td class="title">维保时间</td><td>'+task_createtime+'</td></tr></table>'+
+            '</td>'+
+            '</tr>'+
+            '</table>'+
+            '</div>';
+//        var content = information;y
+        addClickHandler(content,markers);
+    }
+    function menu_li_clicked(obj) {
+        //网页选项卡的切换
+        var $menu_li = $("table.tab_menu tr th");
+        $(obj).addClass("selected") //当前_$ta高亮
+            .siblings().removeClass("selected"); //去掉其它同辈_$ta的高亮
+        var index = $menu_li.index($(obj)); //找到_$ta子节点的索引
+        $("#tab_box td table") //索引为N的DIV显示出来
+            .eq(index).show().siblings().hide();
+        console.log($("#tab_box td table"))
+    }
+    function addClickHandler(content,marker){
+        marker.addEventListener("click",function(e){
+            openInfo(content,e)}
+        );
+    }
+    function openInfo(content,e){
+        var p = e.target;
+        var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+        var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象
+        map.openInfoWindow(infoWindow,point); //开启信息窗口
+    }
+    function processData(res){
+        for (;i<res.length;i++) {
+            var points = new BMap.Point(res[i].latitude,res[i].longitude);//创建坐标点
+            var maintenance_company=res[i].maintenance_company;
+            var task_createtime=res[i].task_createtime;
+            var user_name=res[i].user_name;
+            var phonenumber=res[i].phonenumber
+            var client_name=res[i].client_name
+            var address=res[i].address
+            var registration_code=res[i].registration_code
+            var contact_name=res[i].contact_name
+            var contact_phone=res[i].contact_phone
+            
+            console.log(address);
+            if(res[i].status==1){
+            	var status="正在维保"
+            }else if(res[i].status==2){
+            	var status="故障"
+            }else if(res[i].status==0){
+            	var status="运行正常"
+            }else{
+            	var status="暂无信息"
+            }
+            
+            markerFun(points,client_name,maintenance_company,task_createtime,user_name,phonenumber,address,status,registration_code,contact_name,contact_phone);
+        }
+    }
+    function G(id) {
+        return document.getElementById(id);
+    }
+
+</script>

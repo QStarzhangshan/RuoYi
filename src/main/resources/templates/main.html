@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!--  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!--360浏览器优先以webkit内核解析-->
+    <title></title>
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <link rel="icon" href="https://static.jianshukeji.com/highcharts/images/favicon.ico">
+    <link rel="stylesheet" href="http://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link href="/css/index.css" th:href="@{/css/index.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* css 代码  */
+    </style>
+    <script src="https://img.hcharts.cn/highcharts/highcharts.js"></script>
+   <!--  <script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script> -->
+    <script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <div style="height:100%;">
+        <div class="right">
+		
+            <div class="main" style="">
+				<div class="cascader">
+                    <!--<el-cascader-->
+                            <!--:options="options2"-->
+                            <!---->
+                            <!--:props="props"-->
+                    <!--&gt;</el-cascader>-->
+                    <el-cascader
+                            :options="options"
+                            :show-all-levels="false"
+                            @change="handleItemChange"
+                            v-model="selectedOptions3"
+                    ></el-cascader>
+                    <!--<el-button type="primary">确定</el-button>-->
+                </div>
+
+                <div class="main-first">
+                    <div class="count">
+                        <div class="title">近一个月故障统计</div>
+                        <div style="margin-left:10px;">
+                        </div>
+                        <div id="container" style="height:280px;">
+                        </div>
+                    </div>
+                    <div class="count">
+                        <div class="title">事故电梯数量分布</div>
+                        <div style="margin-left:10px;">
+                            <!--<el-cascader-->
+                            <!--:options="options2"-->
+                            <!--@active-item-change="handleItemChange"-->
+                            <!--:props="props"-->
+                            <!--&gt;</el-cascader>-->
+                        </div>
+                        <div id="line" style="height:280px;padding:20px 0 0 0">
+                        </div>
+                    </div>
+                    <div style="clear: both"></div>
+                </div>
+                <div class="main-second" style="padding-bottom:20px;">
+                    <div class="count">
+                        <div class="title">维保电梯数量统计</div>
+                        <div style="margin-left:10px;">
+                            <!--<el-cascader-->
+                            <!--:options="options2"-->
+                            <!--@active-item-change="handleItemChange"-->
+                            <!--:props="props"-->
+                            <!--&gt;</el-cascader>-->
+                        </div>
+                        <div id="line2" style="height:280px;padding:20px 0 0 0">
+                        </div>
+                    </div>
+                    <div class="count">
+                        <div class="title">维保队伍</div>
+                        <div style="margin-left:10px;">
+                            <!--<el-cascader-->
+                            <!--:options="options2"-->
+                            <!--@active-item-change="handleItemChange"-->
+                            <!--:props="props"-->
+                            <!--&gt;</el-cascader>-->
+                        </div>
+                        <div style="width:90%;margin:0 auto;height:300px;">
+                            <el-table
+                                    :data="tableData4"
+                                    style="width: 100%"
+                                    height="300px">
+                                <el-table-column
+                                        prop="staff_name"
+                                        label="姓名"
+                                        width="220"
+                                        align="center">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="staff_area"
+                                        label="负责区域"
+                                        width="400"
+                                        align="center">
+                                </el-table-column>
+                            </el-table>
+                        </div>
+                    </div>
+                    <div style="clear: both"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    var data1=[];
+    new Vue({
+        el: '#app',
+        data: function() {
+            return {
+                city:[null],
+                linez:[null],
+                tableData4: [],
+                options: [{
+                    value: '全国',
+                    label: '全国',
+           
+                },{
+                    value: '陕西',
+                    label: '陕西',
+                    children: [{
+                        value: "西安",
+                        label: '西安',
+                    }, {
+                        value: '陕北',
+                        label: '陕北',
+                    }]
+                }, {
+                    value: '浙江',
+                    label: '浙江',
+                    children: [{
+                        value: '杭州',
+                        label: '杭州',
+                    }]
+                }, {
+                    value: '福建',
+                    label: '福建',
+                    children: [{
+                        value: '泉州',
+                        label: '泉州',
+                    }]
+                }],
+                selectedOptions3: ['全国']
+            };
+        },
+
+
+        created:function () {
+//            this.getData()
+//            console.log(this.city)
+        },
+
+        methods:{
+
+            handleItemChange:function (val) {
+                console.log(val[1]);
+                //this.url="https://www.easy-mock.com/mock/5b4ca9f369bf673806aea66f/example/query?name="+val[1];
+                //this.url="https://www.qstar.xin/login/getindex";
+                this.url='http://47.93.103.22:8080/login/getindex';
+                //this.url="http://localhost:85/getindex";
+                var city=JSON.stringify(val[1])
+                console.log(city)
+                //this.url="http://localhost:81/getindex?"+encodeURI(encodeURI("city=西安"));
+                axios.get(this.url,{
+                	params : { //请求参数
+                		city : city
+                	}
+                }).then((res)=>{
+                console.log(res);
+                var dataz=[];
+                var linezz=[];
+                var linez=[];
+                var maintenancelist=res.data.maintenancelist;
+                var faultylist=res.data.faultylist;
+                for(var i=0;i<maintenancelist.length;i++){
+                	console.log(maintenancelist[i].maintenance_count)
+                	dataz.unshift(maintenancelist[i].maintenance_date)
+                	linezz.unshift(maintenancelist[i].maintenance_count*10)
+                }
+                for(var i=0;i<faultylist.length;i++){
+                	
+                	linez.unshift(faultylist[i].faulty_count*10)
+                }
+                //this.linez=res.data.data.city.line1;
+                this.dataz=dataz;
+                this.linezz=linezz;
+                this.linez=linez;
+                this.tableData4=res.data.stafflist;
+                this.city=res.data.ratelist;
+                this.getChart()
+                this.getline()
+                this.getline2()
+            })
+            },
+            getData:function(){
+                //this.url="https://www.easy-mock.com/mock/5b4ca9f369bf673806aea66f/example/query?name=西安";
+                //this.url="https://www.qstar.xin/login/getindex";
+                this.url='http://47.93.103.22:8080/login/getindex';
+                //this.url="http://localhost:85/getindex";
+                axios.get(this.url,{}).then((res)=>{
+                console.log(res.data.ratelist)
+               // console.log(res.data.faultylist);
+                var dataz=[];
+                var linezz=[];
+                var linez=[];
+                var maintenancelist=res.data.maintenancelist;
+                var faultylist=res.data.faultylist;
+                for(var i=0;i<maintenancelist.length;i++){
+                	console.log(maintenancelist[i].maintenance_count)
+                	dataz.unshift(maintenancelist[i].maintenance_date)
+                	linezz.unshift(maintenancelist[i].maintenance_count*10)
+                }
+                for(var i=0;i<faultylist.length;i++){
+                	
+                	linez.unshift(faultylist[i].faulty_count*10)
+                }
+                //this.linez=res.data.data.city.line1;
+                this.dataz=dataz;
+                this.linezz=linezz;
+                this.linez=linez;
+                this.tableData4=res.data.stafflist;
+                this.city=res.data.ratelist;
+                this.getChart()
+                this.getline()
+                this.getline2()
+            })
+            },
+            getChart:function(){
+                console.log(this.city)
+                //console.log(res.data.ratelist)
+                var chart1 = Highcharts.chart('container', {
+                    title: {
+                        text: ''
+                    },
+                    tooltip: {
+                        headerFormat: '{series.name}<br>',
+                        pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,  // 可以被选择
+                            cursor: 'pointer',       // 鼠标样式
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                style: {
+                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                }
+                            }
+                        }
+                    },
+                    credits: { enabled: false },
+                    events:{
+                        load:function () {
+                            console.log(data)
+                        },
+                    },
+                    series: [{
+                        type: 'pie',
+                        name: '浏览器访问量占比',
+                        data:this.city,
+                    }]
+                });
+            },
+            getline:function(){
+                var chart = Highcharts.chart('line', {
+                    chart: {
+                        type: 'line'
+                    },
+                    title: {
+                        text: null
+                    },
+                    xAxis: {
+                        categories: this.dataz
+                    },
+                    yAxis: {
+                        title: {
+                            text: '个'
+                        }
+                    },
+                    plotOptions: {
+                        line: {
+                            dataLabels: {
+                                // 开启数据标签
+                                enabled: true
+                            },
+                            // 关闭鼠标跟踪，对应的提示框、点击事件会失效
+                            enableMouseTracking: false
+                        }
+                    },
+                    credits: { enabled: false },
+                    series: [{
+                        data: this.linez
+                    }]
+                })
+            },
+            getline2:function(){
+                var chart = Highcharts.chart('line2', {
+                    chart: {
+                        type: 'line'
+                    },
+                    title: {
+                        text: null
+                    },
+                    xAxis: {
+                        categories: this.dataz
+                    },
+                    yAxis: {
+                        title: {
+                            text: '个'
+                        }
+                    },
+                    plotOptions: {
+                        line: {
+                            dataLabels: {
+                                // 开启数据标签
+                                enabled: true
+                            },
+                            // 关闭鼠标跟踪，对应的提示框、点击事件会失效
+                            enableMouseTracking: false
+                        }
+                    },
+                    credits: { enabled: false },
+                    series: [{
+                        data: this.linezz
+                    }]
+                });
+            }
+
+        },
+        mounted:function () {
+            this.getData()
+//            this.getChart()
+
+
+        },
+
+    });
+
+
+</script>
+</body>
+</html>

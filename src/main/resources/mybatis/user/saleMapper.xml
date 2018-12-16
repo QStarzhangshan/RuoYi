@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.user.sale.mapper.SaleMapper">
+
+    <resultMap type="Sale" id="SaleResult">
+        <id     property="saleId"       column="sale_id"        />
+        <result property="userLoginName"     column="user_loginname"      />
+        <result property="clientName"      column="client_name"       />
+        <result property="saleName"     column="sale_name"      />
+    </resultMap>
+
+    <select id="selectSaleList" parameterType="Sale" resultMap="SaleResult">
+        select sale_id,user_loginname,client_name,sale_name from sys_sale
+        <where>
+            <if test="searchValue != null and searchValue != ''">
+                AND role_name like concat(concat('%', #{searchValue}), '%') OR role_key like concat(concat('%', #{searchValue}), '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="selectSalesAll" resultMap="SaleResult">
+        SELECT sale_id,user_loginname,client_name,sale_name FROM sys_sale
+    </select>
+
+
+
+    <insert id="insertSale" parameterType="Sale" useGeneratedKeys="true" keyProperty="saleId">
+        insert into sys_sale(
+        <if test="saleId != null and saleId != 0">sale_id,</if>
+        <if test="userLoginName != null and userLoginName != ''">user_loginname,</if>
+        <if test="clientName != null and clientName != ''">client_name,</if>
+        <if test="saleName != null and saleName != ''">sale_name</if>
+        )values(
+        <if test="saleId != null and saleId != 0">#{saleId},</if>
+        <if test="userLoginName != null and userLoginName != ''">#{userLoginName},</if>
+        <if test="clientName != null and clientName != ''">#{clientName},</if>
+        <if test="saleName != null and saleName != ''">#{saleName}</if>
+        )
+    </insert>
+
+
+    <select id="checkSaleNameUnique" parameterType="String" resultType="int">
+        select count(*) from sys_sale where sale_name=#{saleName}
+    </select>
+
+    <select id="selectSaleById" parameterType="Long" resultMap="SaleResult">
+        select sale_id,user_loginname,client_name,sale_name
+        from sys_sale u
+        where u.sale_id = #{saleId}
+    </select>
+
+    <update id="updateSale" parameterType="Sale">
+        update sys_sale
+        <set>
+            <if test="userLoginName != null and userLoginName != ''">user_loginname = #{userLoginName},</if>
+            <if test="clientName != null and clientName != ''">client_name = #{clientName},</if>
+            <if test="saleName != null and saleName != ''">sale_name = #{saleName}</if>
+        </set>
+        where 1=1
+        <if test="saleId != null">and sale_id = #{saleId}</if>
+    </update>
+
+    <!--<select id="selectRolesByUserId" parameterType="Long" resultMap="RoleResult">
+        SELECT r.role_id, r.role_name, r.role_key
+        FROM sys_user u
+        LEFT JOIN sys_user_role ur ON u.user_id = ur.user_id
+        LEFT JOIN sys_role r ON ur.role_id = r.role_id
+        WHERE ur.user_id = #{userId}
+    </select>
+
+    <select id="selectRolesAll" resultMap="RoleResult">
+        SELECT role_id, role_name, role_key, role_sort, status, create_time, remark FROM sys_role
+    </select>
+
+    <select id="selectSaleById" parameterType="Long" resultMap="RoleResult">
+        select role_id, role_name, role_key, role_sort, status, create_time, remark
+        from sys_role u
+        where u.role_id = #{roleId}
+    </select>
+
+    <select id="checkRoleNameUnique" parameterType="String" resultMap="RoleResult">
+        select role_id, role_name, role_key, role_sort, status, create_time
+        from sys_role where role_name=#{roleName}
+    </select>
+
+    <delete id="deleteRoleById" parameterType="Long">
+        delete from sys_role where role_id = #{roleId}
+    </delete>
+
+    <delete id="batchDeleteRole" parameterType="Long">
+        delete from sys_role where role_id in
+        <foreach collection="array" item="roleId" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
+    </delete>
+
+    <update id="updateRole" parameterType="Role">
+        update sys_role
+        <set>
+            <if test="roleName != null and roleName != ''">role_name = #{roleName},</if>
+            <if test="roleKey != null and roleKey != ''">role_key = #{roleKey},</if>
+            <if test="roleSort != null and roleSort != ''">role_sort = #{roleSort},</if>
+            <if test="status !=null">status = #{status},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            update_time = sysdate()
+        </set>
+        where 1=1
+        <if test="roleId != null">and role_id = #{roleId}</if>
+    </update>
+insertSale
+    <insert id="insertRole" parameterType="Role" useGeneratedKeys="true" keyProperty="roleId">
+        insert into sys_role(
+        <if test="roleId != null and roleId != 0">role_id,</if>
+        <if test="roleName != null and roleName != ''">role_name,</if>
+        <if test="roleKey != null and roleKey != ''">role_key,</if>
+        <if test="roleSort != null and roleSort != ''">role_sort,</if>
+        <if test="status !=null and status != ''">status,</if>
+        <if test="remark != null and remark != ''">remark,</if>
+        <if test="createBy != null and createBy != ''">create_by,</if>
+        create_time
+        )values(
+        <if test="roleId != null and roleId != 0">#{roleId},</if>
+        <if test="roleName != null and roleName != ''">#{roleName},</if>
+        <if test="roleKey != null and roleKey != ''">#{roleKey},</if>
+        <if test="roleSort != null and roleSort != ''">#{roleSort},</if>
+        <if test="status !=null and status != ''">#{status},</if>
+        <if test="remark != null and remark != ''">#{remark},</if>
+        <if test="createBy != null and createBy != ''">#{createBy},</if>
+        sysdate()
+        )
+    </insert>-->
+
+</mapper>

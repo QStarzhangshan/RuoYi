@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.elevator.status.mapper.MaintenanceMapper">
+
+    <resultMap type="Maintenance" id="MaintenanceResult">
+        <id     property="id"       column="id"        />
+        <result property="elevator_id"     column="elevator_id"      />
+        <result property="dept_id"     column="dept_id"      />
+        <result property="dept_name"     column="dept_name"      />
+        <result property="user_id"     column="user_id"      />
+        <result property="maintenance_cycle"     column="maintenance_cycle"      />
+        <result property="maintenance_name"     column="maintenance_name"      />
+        <result property="maintenance_phone"     column="maintenance_phone"      />
+        <result property="maintenance_email"     column="maintenance_email"      />
+        <result property="maintenance_loginname"     column="maintenance_loginname"      />
+        <result property="maintenance_firsttime"     column="maintenance_firsttime"      />
+        <result property="maintenance_nexttime"      column="maintenance_nexttime"      />
+        <result property="maintenance_grap"     column="maintenance_grap"      />
+        <result property="maintenance_cost"     column="maintenance_cost"      />
+    </resultMap>
+
+  	<select id="selectMaintenanceById" parameterType="long" resultMap="MaintenanceResult">
+  		select * from sys_maintenance 
+  		where 1=1
+  		<if test="id != null and id != ''">and elevator_id = #{id}</if>
+  	</select>
+
+</mapper>
